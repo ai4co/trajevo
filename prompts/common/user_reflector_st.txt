@@ -1,0 +1,19 @@
+Below are two {func_name} functions for {problem_desc}
+{func_desc}
+
+You are provided with two code versions below, where the second version performs better than the first one.
+
+[Worse code]
+{worse_code}
+
+[Worse code results analysis]
+{stats_info_worse}
+
+[Better code]
+{better_code}
+
+[Better code results analysis]
+
+{stats_info_better}
+
+Respond with some hints for designing better heuristics, based on the two code versions and the trajectory statistics. Be concise. Use a maximum of 200 words.

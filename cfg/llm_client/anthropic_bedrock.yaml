@@ -1,0 +1,7 @@
+_target_: utils.llm_client.bedrock.BedrockClient
+
+model: ${oc.env:AWS_BEDROCK_MODEL_ID,null}  # model name is not required
+temperature: 0.7
+aws_access_key: ${oc.env:AWS_ACCESS_KEY_ID,null}
+aws_secret_key: ${oc.env:AWS_SECRET_ACCESS_KEY,null}
+aws_region: ${oc.env:AWS_REGION,null}

@@ -1,0 +1,5 @@
+The predict_trajectory function takes as input the current trajectory (8 frames) and generates 20 possible future trajectories for the next 12 frames. It has only one parameter: the past trajectory array.
+The output is a numpy array of shape [20, num_agents, 12, 2] containing all 20 trajectories.
+Note that we are interesting in obtaining at least one good trajectory, not necessarily 20.
+Thus, diversifying a little bit is good.
+Note that the heuristic should be generalizable to new distributions.

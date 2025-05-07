@@ -1,0 +1,9 @@
+problem_name: trajectory_prediction
+dataset: eth
+problem_type: normal
+obj_type: min
+problem_size: None # problem size for training
+func_name: predict_trajectory
+description: The predict_trajectory function takes as input the current trajectory (8 frames) and has to predict the next 12 steps.
+samples_per_scene: 20
+samples_per_scene_test: 70 # NOTE: this is not the final test

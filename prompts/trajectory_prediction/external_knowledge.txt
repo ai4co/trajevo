@@ -1,0 +1,7 @@
+# External Knowledge for Pedestrian Trajectory Prediction
+
+## Task Definition
+- We are using the ETH/UCY dataset for this task (human trajectory prediction)
+- Input: Past 8 frames of pedestrian positions
+- Output: Future 12 frames of pedestrian positions
+- Variable number of pedestrians per scene

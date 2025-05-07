@@ -1,0 +1,21 @@
+def predict_trajectory(trajectory):
+    """Generate 20 possible future trajectories
+    Args:
+        - trajectory [num_agents, traj_length, 2]: here the traj_length is 8;
+    Returns:
+        - 20 diverse trajectories [20, num_agents, 12, 2]
+    """
+    all_trajectories = []
+    for _ in range(20):
+        current_pos = trajectory[:, -1, :]
+        velocity = trajectory[:, -1, :] - trajectory[:, -2, :] # only use the last two frames
+        predictions = []
+        for t in range(1, 12+1): # 12 future frames
+            current_pos = current_pos + velocity * 1 # dt
+            predictions.append(current_pos.copy())
+        pred_trajectory = np.stack(predictions, axis=1)
+        all_trajectories.append(pred_trajectory)
+    
+    all_trajectories = np.stack(all_trajectories, axis=0)
+    
+    return all_trajectories

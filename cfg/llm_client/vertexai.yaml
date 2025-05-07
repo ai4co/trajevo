@@ -1,0 +1,8 @@
+_target_: utils.llm_client.vertexai.VertexAIClient
+
+# Using Google Vertex AI
+# model: gemini-2.5-pro-preview-03-25  # or any other Gemini model
+model: gemini-2.0-flash # this is much faster and  good enough
+temperature: 1.0  # temperature for chat completion
+max_tokens: null  # optional max tokens
+max_retries: 6  # number of retries for failed requests

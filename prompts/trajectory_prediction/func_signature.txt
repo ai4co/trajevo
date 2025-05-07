@@ -1,0 +1,1 @@
+def predict_trajectory{version}(trajectory: np.ndarray) -> np.ndarray:
