@@ -1,4 +1,21 @@
-# TrajEvo: Evolving SOTA Trajectory Prediction Heuristics with LLMs
+# TrajEvo
+
+_Evolving SOTA Trajectory Prediction Heuristics with LLMs_
+
+<p align="center">
+    <img src="./assets/overview-motivation.png" alt="overview" width="100%">
+</p>
+
+
+
+| Metric | Manual Heuristic Design | Deep Learning | TrajEvo |
+| :----- | :-----------------------: | :-----------: | :-----: |
+| Explainability | ✨ | ❌ | ✨ |
+| Speed | ✨ | ⚠️ | ✨ |
+| Performance (in-distribution) | ❌ | ✨  | ✅ |
+| Performance (generalization) | ⚠️ | ⚠️  | ✨ |
+
+Legend: ✨ (Excellent), ✅ (Good), ⚠️ (Often Poor), ❌ (Bad)
 
 
 
@@ -103,9 +120,21 @@ As well as the `dataset` argument to evaluate on other datasets.
 (Note: these results might be slightly different from what reported in the paper due to different random seed used at the time of writing)
 
 
+
+
+<p align="center">
+    <img src="./assets/example-trajs.png" alt="overview" width="100%">
+</p>
+
+
+
 ### Reference
 
 Our work is built on top of the ReEvo repo! Please check it out:
 https://github.com/ai4co/reevo
 
 
+
+### Citation
+
+TBD soon!
