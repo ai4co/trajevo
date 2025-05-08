@@ -67,7 +67,7 @@ python main.py -m problem=trajectory_prediction init_pop_size=8 max_fe=50 timeou
 The above will run multiple (with `-m`) experiments, across all datasets, with different seeds.
 
 
-### Evaluate TrajEvo 
+### Evaluate TrajEvo
 
 
 #### ETH-UCY
@@ -108,7 +108,7 @@ python trajectory_prediction/eval.py --code_path trajectory_prediction/baselines
 
 
 You may just change the `code_path` and the sampling attribute to obtain other baselines:
-- CVM: `--code_path trajectory_prediction/baselines/cvm/model.py --code_args "{'sample':False}"` 
+- CVM: `--code_path trajectory_prediction/baselines/cvm/model.py --code_args "{'sample':False}"`
 - CVM-S: `--code_path trajectory_prediction/baselines/cvm/model.py --code_args "{'sample':True}"`
 - ConstantAcc: `--code_path trajectory_prediction/baselines/constant_accel/model.py`
 - CTRV: `--code_path trajectory_prediction/baselines/ctrv/model.py`
@@ -125,16 +125,3 @@ As well as the `dataset` argument to evaluate on other datasets.
 <p align="center">
     <img src="./assets/example-trajs.png" alt="overview" width="100%">
 </p>
-
-
-
-### Reference
-
-Our work is built on top of the ReEvo repo! Please check it out:
-https://github.com/ai4co/reevo
-
-
-
-### Citation
-
-TBD soon!

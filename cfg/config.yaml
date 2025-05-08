@@ -17,7 +17,7 @@ hydra:
     chdir: True
 
 # The chosen algorithm
-algorithm: trajevo # Note: you may also use other algorithms following https://github.com/ai4co/reevo
+algorithm: trajevo
 
 # Main GA loop parameters
 max_fe: 100 # maximum number of function evaluations

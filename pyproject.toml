@@ -7,13 +7,7 @@ name = "trajevo"
 version = "0.1.0"
 description = "TrajEvo: Designing Trajectory Prediction Heuristics via LLM-driven Evolution"
 authors = [
-    { name = "Zhikai Zhao", email = "zhikai.zhao.chn@gmail.com" },
-    { name = "Chuanbo Hua", email = "huachuanbo@gmail.com" },
-    { name = "Federico Berto", email = "berto.federico2@gmail.com" },
-    { name = "Kanghoon Lee" },
-    { name = "Zihan Ma" },
-    { name = "Jiachen Li" },
-    { name = "Jinkyoo Park" },
+    { name = "Anonymized", email = "anonymized@gmail.com" }
 ]
 requires-python = ">=3.11"
 readme = "README.md"
