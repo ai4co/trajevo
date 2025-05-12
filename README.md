@@ -1,5 +1,7 @@
 # TrajEvo
 
+[![arXiv](https://img.shields.io/badge/arXiv-2505.04480-b31b1b.svg)](https://arxiv.org/abs/2505.04480) [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
+
 _Evolving SOTA Trajectory Prediction Heuristics with LLMs_
 
 <p align="center">
@@ -19,7 +21,6 @@ Legend: ✨ (Excellent), ✅ (Good), ⚠️ (Often Poor), ❌ (Bad)
 
 
 
-
 ## Install
 
 With uv:
@@ -30,27 +31,21 @@ source .venv/bin/activate
 uv sync --all-extras
 ```
 
-Then, export the API key and other environment variables. For example, if you use Azure:
+You may check the available LLM clients in [`utils/llm_client`](utils/llm_client). Remember to set the environment variables for the LLM client you want to use. For example, to run the exp with VertexAI, remember to run `export GOOGLE_APPLICATION_CREDENTIALS="..."` with the json file.
 
-```bash
-export AZURE_OPENAI_KEY="..."
-export AZURE_OPENAI_ENDPOINT="..."
-export AZURE_OPENAI_DEPLOYMENT="..."
-```
-
-You may check the available LLM clients in [`utils/llm_client`](utils/llm_client).
 
 ### Usage
 
-Main files repo for trajectory prediction [trajectory_prediction](trajectory_prediction)
+From the root directory, you may run:
 
-
-To run the exp, e.g. with VertexAI (in this case, remember to run `export GOOGLE_APPLICATION_CREDENTIALS="..."` with the json file):
 
 ```bash
 python main.py problem=trajectory_prediction init_pop_size=8 max_fe=50 timeout=20 llm_client=vertexai problem.dataset=eth
 ```
 Change `problem.dataset` to `eth`, `hotel`, `univ`, or `zara1` for different datasets. This means training on all datasets **except** ETH (i.e., it will generate the "ETH" results).
+
+
+Note that the main problem files repo for trajectory prediction is here: [trajectory_prediction](trajectory_prediction)
 
 
 
@@ -128,13 +123,26 @@ As well as the `dataset` argument to evaluate on other datasets.
 
 
 
-### Reference
-
-Our work is built on top of the ReEvo repo! Please check it out:
-https://github.com/ai4co/reevo
 
 
 
 ### Citation
 
-TBD soon!
+If you find our work helpful (or if you are so kind as to offer us some encouragement), please consider giving us a star, and citing our paper:
+
+```bibtex
+@article{zhao2025trajevo,
+  title={{TrajEvo}: Designing Trajectory Prediction Heuristics via LLM-driven Evolution},
+  author={Zhikai Zhao and Chuanbo Hua and Federico Berto and Kanghoon Lee and Zihan Ma and Jiachen Li and Jinkyoo Park},
+  journal={arXiv preprint arXiv:2505.04480},
+  url={https://github.com/ai4co/trajevo},
+  year={2025}
+}
+```
+
+
+### Acknowledgements
+
+Our work is built on top of the ReEvo repo! 
+Please check it out:
+https://github.com/ai4co/reevo
