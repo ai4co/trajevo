@@ -217,10 +217,22 @@ def predict_trajectory(trajectory: np.ndarray) -> np.ndarray:
         # Option 6: Stagnant trajectory with tiny perturbation (biased, but less biased)
         else:
             avg_velocity = np.mean(np.diff(trajectory, axis=1), axis=1)
-            bias = np.mean(avg_velocity, axis=0) * 0.005  # Reduced bias
-            noise = np.random.normal(0, 0.0005, size=(num_agents, 2))
+            # Use recent velocity trend for bias
+            if traj_length >= 3:
+                recent_velocities = np.diff(trajectory[:, -3:, :], axis=1)
+                trend_velocity = np.mean(recent_velocities, axis=1)
+                bias = trend_velocity * 0.01  # Use trend velocity as bias
+            else:
+                bias = np.mean(avg_velocity, axis=0) * 0.005
+            
+            # Add momentum with decay
+            momentum = bias.copy()
+            decay_rate = 0.95
+            
             for t in range(12):
-                current_pos += noise + bias
+                noise = np.random.normal(0, 0.0005, size=(num_agents, 2))
+                current_pos += momentum + noise
+                momentum *= decay_rate  # Momentum decays over time
                 predictions.append(current_pos.copy())
 
         pred_trajectory = np.stack(predictions, axis=1)
