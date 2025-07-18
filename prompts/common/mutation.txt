@@ -11,4 +11,4 @@
 {stats_info_elitist}
 
 [Improved code]
-Please write a mutated function `{func_name}_v2`, according to the reflection. Output code only and enclose your code with Python code block: ```python ... ```.
+Please write a mutated function `{func_name}_v2`, according to the reflection. The goal is to improve the code to achieve a lower Mean Squared Error (MSE) on the trajectory prediction task. Output code only and enclose your code with Python code block: ```python ... ```.

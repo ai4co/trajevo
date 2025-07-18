@@ -5,3 +5,16 @@
 - Input: Past 8 frames of pedestrian positions
 - Output: Future 12 frames of pedestrian positions
 - Variable number of pedestrians per scene
+
+## Key Performance Indicators (KPIs)
+The quality of predictions is measured by the following metrics. Let the predicted trajectory for a single agent be \\(\hat{Y} = (\hat{x}_t, \hat{y}_t)_{t=1...T_{pred}}
+\\) and the ground truth trajectory be \\(Y = (x_t, y_t)_{t=1...T_{pred}}\\), where \\(T_{pred}=12\\).
+
+- **Mean Squared Error (MSE)**: This is the primary optimization target during the evolutionary process. It measures the average squared difference between the predicted and actual coordinates. A lower MSE is better.
+  Formula: \\[ MSE = \frac{1}{T_{pred}} \sum_{t=1}^{T_{pred}} ((\hat{x}_t - x_t)^2 + (\hat{y}_t - y_t)^2) \\]
+
+- **Average Displacement Error (ADE)**: This is a standard evaluation metric. It measures the average Euclidean distance between the predicted and actual coordinates over the entire prediction period. A lower ADE is better.
+  Formula: \\[ ADE = \frac{1}{T_{pred}} \sum_{t=1}^{T_{pred}} \sqrt{(\hat{x}_t - x_t)^2 + (\hat{y}_t - y_t)^2} \\]
+
+- **Final Displacement Error (FDE)**: This is another standard evaluation metric. It measures the Euclidean distance between the predicted final destination and the actual final destination at the end of the prediction period (\\(t=T_{pred}\\)). A lower FDE is better.
+  Formula: \\[ FDE = \sqrt{(\hat{x}_{T_{pred}} - x_{T_{pred}})^2 + (\hat{y}_{T_{pred}} - y_{T_{pred}})^2} \\]
