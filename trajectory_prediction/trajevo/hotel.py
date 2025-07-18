@@ -24,7 +24,7 @@ def predict_trajectory(trajectory: np.ndarray) -> np.ndarray:
     )  # Approximation of acceleration
 
     for i in range(20):
-        current_pos = trajectory[:, -1, :]
+        current_pos = trajectory[:, -1, :].copy()
 
         # Trajectories 0-5: Linear Extrapolation with refined noise and velocity averaging
         if i < 6:
@@ -40,6 +40,8 @@ def predict_trajectory(trajectory: np.ndarray) -> np.ndarray:
                     0, noise_scale * (t**0.4), size=current_pos.shape
                 )
                 current_pos = current_pos + velocity_current + noise * 0.25
+                # Add very slight velocity decay for long-term stability
+                velocity_current *= 0.999
                 predictions.append(current_pos.copy())
             pred_trajectory = np.stack(predictions, axis=1)
 
@@ -79,8 +81,8 @@ def predict_trajectory(trajectory: np.ndarray) -> np.ndarray:
                 predictions.append(current_pos.copy())
             pred_trajectory = np.stack(predictions, axis=1)
 
-        # Trajectories 14-19: More Diverse Turning Motion and variable damping
-        else:
+        # Trajectories 14-16: Original turning motion
+        elif i < 17:
             turn_factor = np.random.uniform(-0.04, 0.06)  # turning from -0.04 to 0.06
             damping = np.random.uniform(0.992, 0.998)  # damping
             noise_scale = np.random.uniform(0.000005, 0.000012)  # noise
@@ -102,6 +104,29 @@ def predict_trajectory(trajectory: np.ndarray) -> np.ndarray:
                 )
                 velocity_current *= damping
                 current_pos = current_pos + velocity_current + noise * 0.03
+                predictions.append(current_pos.copy())
+            pred_trajectory = np.stack(predictions, axis=1)
+
+        # Trajectories 17-19: Momentum-based (similar to ETH Option 6)
+        else:
+            # Use recent velocity trend
+            if trajectory.shape[1] >= 3:
+                recent_velocities = np.diff(trajectory[:, -3:, :], axis=1)
+                trend_velocity = np.mean(recent_velocities, axis=1)
+                bias = trend_velocity * 0.01  # Use trend velocity as bias
+            else:
+                bias = velocity * 0.005
+            
+            # Add momentum with decay
+            momentum = bias.copy()
+            decay_rate = 0.95
+            noise_scale = 0.0005
+            
+            predictions = []
+            for t in range(1, 13):
+                noise = np.random.normal(0, noise_scale, size=current_pos.shape)
+                current_pos = current_pos + momentum + noise
+                momentum *= decay_rate  # Momentum decays over time
                 predictions.append(current_pos.copy())
             pred_trajectory = np.stack(predictions, axis=1)
 
