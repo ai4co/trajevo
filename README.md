@@ -10,15 +10,16 @@ _Evolving SOTA Trajectory Prediction Heuristics with LLMs_
 
 
 
-| Metric | Manual Heuristic Design | Deep Learning | TrajEvo |
-| :----- | :-----------------------: | :-----------: | :-----: |
-| Explainability | ✨ | ❌ | ✨ |
-| Speed | ✨ | ⚠️ | ✨ |
-| Performance (in-distribution) | ❌ | ✨  | ✅ |
-| Performance (generalization) | ⚠️ | ⚠️  | ✨ |
+| Approach | Explainability | Speed | Performance |
+| :--- | :---: | :---: | :---: |
+| Manual Heuristic Design | ✅ | ✅ | ❌ |
+| Deep Learning | ❌ | ❌ | ✅ |
+| **TrajEvo** | ✅ | ✅ | ✅ |
 
-Legend: ✨ (Excellent), ✅ (Good), ⚠️ (Often Poor), ❌ (Bad)
+> TrajEvo takes the best of both worlds: it is fast and explainable like manual heuristic design, but also performs well like deep learning.
 
+
+(_more discussions in the paper_)
 
 
 ## Install
@@ -62,7 +63,7 @@ python main.py -m problem=trajectory_prediction init_pop_size=8 max_fe=50 timeou
 The above will run multiple (with `-m`) experiments, across all datasets, with different seeds.
 
 
-### Evaluate TrajEvo 
+### Evaluate TrajEvo
 
 
 #### ETH-UCY
@@ -103,7 +104,7 @@ python trajectory_prediction/eval.py --code_path trajectory_prediction/baselines
 
 
 You may just change the `code_path` and the sampling attribute to obtain other baselines:
-- CVM: `--code_path trajectory_prediction/baselines/cvm/model.py --code_args "{'sample':False}"` 
+- CVM: `--code_path trajectory_prediction/baselines/cvm/model.py --code_args "{'sample':False}"`
 - CVM-S: `--code_path trajectory_prediction/baselines/cvm/model.py --code_args "{'sample':True}"`
 - ConstantAcc: `--code_path trajectory_prediction/baselines/constant_accel/model.py`
 - CTRV: `--code_path trajectory_prediction/baselines/ctrv/model.py`
@@ -143,6 +144,6 @@ If you find our work helpful (or if you are so kind as to offer us some encourag
 
 ### Acknowledgements
 
-Our work is built on top of the ReEvo repo! 
+Our work is built on top of the ReEvo repo!
 Please check it out:
 https://github.com/ai4co/reevo
