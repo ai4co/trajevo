@@ -40,26 +40,30 @@ def process_trajectory(traj_idx, input_traj, target_traj, code_args=None):
     target_traj = torch.tensor(target_traj)
 
     # Compute ADE and FDE for the prediction
-    minade, minade_idx, ade_all = compute_batch_ade_ret(
-        gpt_prediction_tensor, target_traj
-    )
-    minfde, minfde_idx, fde_all = compute_batch_fde_ret(
-        gpt_prediction_tensor, target_traj
-    )
+    _, _, ade_all = compute_batch_ade_ret(gpt_prediction_tensor, target_traj)
+    _, _, fde_all = compute_batch_fde_ret(gpt_prediction_tensor, target_traj)
 
     assert (
         ade_all.shape[0] == NUM_TRAJECTORIES
     ), f"ade first shape should be {NUM_TRAJECTORIES}, but got {ade_all.shape[0]}"
 
-    mixed_goal = 0.6 * minade + 0.4 * minfde
+    # Calculate MSE for all predictions
+    mse_all = torch.mean((gpt_prediction_tensor - target_traj) ** 2, dim=(1, 2, 3))
+
+    # Find the best trajectory based on MSE
+    minmse, minmse_idx = torch.min(mse_all, dim=0)
+
+    # Get the ADE and FDE for the trajectory with the minimum MSE
+    minade = ade_all[minmse_idx]
+    minfde = fde_all[minmse_idx]
 
     return {
         "traj_idx": traj_idx,
-        "minade_idx": minade_idx,
-        "minfde_idx": minfde_idx,
+        "minade_idx": minmse_idx,
+        "minfde_idx": minmse_idx,
         "minade": minade,
         "minfde": minfde,
-        "mixed_goal": mixed_goal,
+        "mse": minmse,
     }
 
 
@@ -100,8 +104,8 @@ def main(args):
     # Calculate the averages for the results
     avg_best_ade = np.mean([traj_result["minade"] for traj_result in best_per_trajectory])
     avg_best_fde = np.mean([traj_result["minfde"] for traj_result in best_per_trajectory])
-    avg_best_mixed_goal = np.mean(
-        [traj_result["mixed_goal"] for traj_result in best_per_trajectory]
+    avg_best_mse = np.mean(
+        [traj_result["mse"] for traj_result in best_per_trajectory]
     )
 
     # Count the best_idx
@@ -112,7 +116,7 @@ def main(args):
 
     # Print the results
     print("<stats>")
-    print("Statistics of trajectory index counts with lowest ADE.")
+    print("Statistics of trajectory index counts with lowest MSE.")
     print(
         "These help us understand which heuristics contribute to the performance for at least some trajectories."
     )
@@ -126,8 +130,8 @@ def main(args):
     print(f"FDE: {avg_best_fde:.6f}")
 
     # Needed for running TrajEvo
-    print("\n[*] Minimum Mixed Goal:")
-    print(avg_best_mixed_goal)
+    print("\n[*] Minimum MSE:")
+    print(float(avg_best_mse))
 
 
 if __name__ == "__main__":

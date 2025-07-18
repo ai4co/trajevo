@@ -3,3 +3,6 @@ The output is a numpy array of shape [20, num_agents, 12, 2] containing all 20 t
 Note that we are interesting in obtaining at least one good trajectory, not necessarily 20.
 Thus, diversifying a little bit is good.
 Note that the heuristic should be generalizable to new distributions.
+
+The primary optimization goal for the generated function is to minimize the **Mean SquaredError (MSE)** between one of the 20 predicted trajectories and the ground truth trajectory. During the evolutionary process, functions will be selected and improved based on their MSE score.
+However, the final performance of the best function will also be evaluated using **Average Displacement Error (ADE)** and **Final Displacement Error (FDE)** for a comprehensive assessment against standard benchmarks.
